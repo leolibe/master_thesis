@@ -1,0 +1,14 @@
+input_size: [512, 512]
+batch_size: 4
+epochs: 50
+
+split:
+  train: 0.64
+  val: 0.20
+  test: 0.16
+
+filter:
+  empty_keep_ratio: 0.25
+
+model:
+  learning_rate: 0.0001

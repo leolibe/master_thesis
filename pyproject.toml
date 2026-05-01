@@ -1,0 +1,27 @@
+[project]
+name = "road-segmentation-orthophotos"
+version = "0.1.0"
+description = "Road segmentation from orthophotos using deep learning (U-Net) and geospatial preprocessing."
+authors = [
+    { name = "Léo Liberkowski" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "numpy",
+    "tensorflow",
+    "opencv-python",
+    "Pillow",
+    "matplotlib",
+    "rasterio",
+    "geopandas",
+    "shapely",
+    "fiona",
+    "pyproj",
+    "tqdm",
+    "scikit-learn"
+]
+
+[tool.setuptools]
+packages = ["src"]
