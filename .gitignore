@@ -27,7 +27,6 @@ env/
 data/
 *.tif
 *.tiff
-*.jpg
 *.jpeg
 *.gml
 *.geojson
