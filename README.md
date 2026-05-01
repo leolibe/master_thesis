@@ -1,63 +1,121 @@
-# Master Thesis - Leo Liberkowski: Road Segmentation from Norwegian Orthophotos
+# Master Thesis – Leo Liberkowski  
+### Road Segmentation from Norwegian Orthophotos
 
-This project develops a deep learning pipeline for road segmentation using aerial orthophotos and vector road data.
+This project implements a deep learning pipeline for **road segmentation** using aerial orthophotos and vector road data.
+
+---
 
 ## Objective
 
-Generate binary road masks from geospatial data and train a U-Net model to segment roads from orthophotos.
+The goal is to generate **binary road masks** from geospatial data and train a **U-Net model** to automatically segment roads from high-resolution orthophotos.
+
+---
+
+## Project Structure
+
+
+master_thesis/
+├── configs/train_config.yaml # Training hyperparameters
+├── notebooks/demo_predictions.ipynb
+├── src/road_segmentation/
+│ ├── mask_generation.py # GML → PNG masks
+│ ├── patch_generation.py # Tiles → 512×512 patches
+│ ├── preprocessing.py # Filtering + spatial split
+│ ├── dataset.py # tf.data pipeline
+│ ├── train.py # U-Net training
+│ ├── evaluate.py # Test metrics
+│ └── visualization.py # Prediction plots
+└── results/
+
+
+---
 
 ## Data
 
-- Orthophotos: GeoTIFF, 30 cm/pixel
-- CRS: EPSG:25833
-- Vector roads: GML
-- Masks: binary PNG masks
+- **Orthophotos**: GeoTIFF (30 cm/pixel resolution)  
+- **Coordinate system**: EPSG:25833  
+- **Road data**: GML (vector format)  
+- **Generated masks**: Binary PNG images  
 
-Raw data is not included in this repository due to size and licensing constraints.
+Raw data is **not included** due to size and licensing constraints (NTNU datasets).
+
+---
 
 ## Pipeline
 
-1. Load orthophotos and GML road geometries
-2. Convert geometries to EPSG:25833
-3. Rasterize roads into binary masks
-4. Generate aligned image/mask patches
-5. Filter empty patches
-6. Split dataset by tile to avoid spatial leakage
-7. Train U-Net segmentation model
-8. Evaluate using Dice, IoU, Precision, Recall
+1. Load orthophotos and GML road geometries  
+2. Reproject geometries to EPSG:25833  
+3. Rasterize roads into binary masks  
+4. Generate aligned image/mask patches (512×512)  
+5. Filter empty patches  
+6. Split dataset by tile (to avoid spatial leakage)  
+7. Train a U-Net segmentation model  
+8. Evaluate using Dice, IoU, Precision, and Recall  
+
+---
+
+## Key Technical Choices
+
+- **Tile-based split**  
+  Prevents spatial leakage: nearby patches must not appear in both training and validation sets, as this would artificially inflate performance.
+
+- **BCE + Dice Loss**  
+  Roads represent only ~3% of pixels.  
+  - Binary Cross-Entropy alone struggles with class imbalance  
+  - Dice loss directly penalizes false negatives  
+
+- **Empty patch filtering (`empty_keep_ratio=0.25`)**  
+  Keeps 25% of patches without roads so the model learns to correctly identify background.
+
+---
 
 ## Results
 
-Example test-set metrics:
+Example metrics on the test set:
 
-| Metric | Value |
-|---|---|
-| Accuracy | 0.994 |
-| IoU | 0.577 |
-| Dice | 0.621 |
-| Precision | 0.643 |
-| Recall | 0.676 |
+| Metric     | Value |
+|------------|------|
+| Accuracy   | 0.994 |
+| IoU        | 0.577 |
+| Dice       | 0.621 |
+| Precision  | 0.643 |
+| Recall     | 0.676 |
 
-Accuracy is not used as the main metric due to strong class imbalance.
+Accuracy is not a reliable metric here due to **strong class imbalance**.
 
-Validation accuracy is slightly higher than training accuracy, likely due to:
-- differences in tile distribution after spatial split
-- class imbalance (dominance of background pixels)
+Validation accuracy may exceed training accuracy due to:
+- spatial distribution differences after tile-based split  
+- dominance of background pixels  
 
-## Example predictions
+---
+
+## Example Predictions
 
 ![Prediction examples](results/prediction_examples.png)
 
-## Notes on data and environment
+---
 
-- The full project was developed and trained on a remote HPC server (SSH environment at NTNU) due to the large size of geospatial data (~TB scale) and computational requirements.
-- This repository contains a lightweight version of the project:
-  - No raw orthophotos or full datasets
-  - Only code, configuration, and example outputs
-- The pipeline remains fully reproducible with appropriate data access.
+## Requirements
 
-## How to run
+- Python 3.10+  
+- Conda (recommended for geospatial dependencies)  
+- Access to NTNU orthophotos (not provided)  
+
+---
+
+## Installation & Usage
 
 ```bash
+# Create environment
+conda create -n roads python=3.10
+conda activate roads
+
+# Install dependencies
 pip install -r requirements.txt
-python src/train.py
+
+# Data preparation
+python -m src.road_segmentation.mask_generation --tif-dir data/tifs --gml data/roads.gml
+python -m src.road_segmentation.patch_generation --image-dir data/tifs --mask-dir data/masks
+
+# Train model
+python -m src.road_segmentation.train
