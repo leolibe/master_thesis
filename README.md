@@ -99,7 +99,7 @@ Validation accuracy may exceed training accuracy due to:
 
 - Python 3.10+  
 - Conda (recommended for geospatial dependencies)  
-- Access to NTNU orthophotos (not provided)  
+- Access to orthophotos from GeoNorge (not provided)  
 
 ---
 
