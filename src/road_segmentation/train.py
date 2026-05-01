@@ -1,17 +1,23 @@
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 from tensorflow.keras.optimizers.legacy import Adam
-from losses import bce_dice_loss, dice_coef, iou_score
-from dataset import make_dataset
+from road_segmentation.losses import bce_dice_loss, dice_coef, iou_score
+from road_segmentation.dataset import make_dataset
 from unet import unet
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import Conv2DTranspose
-
+import yaml
+from pathlib import Path
 
 class Conv2DTransposeFixed(Conv2DTranspose):
     def __init__(self, *args, **kwargs):
         kwargs.pop("groups", None)
         super().__init__(*args, **kwargs)
+
+
+def load_config(path="configs/train_config.yaml"):
+    with open(path) as f:
+        return yaml.safe_load(f)
 
 
 def load_model_fixed(model_path):
@@ -23,9 +29,9 @@ def load_model_fixed(model_path):
 
 def train_model(train_ds, val_ds, input_shape):
     model = unet(input_shape, output_layer=1)
-
+    cfg = load_config()
     model.compile(
-        optimizer=Adam(learning_rate=1e-4),
+        optimizer=Adam(learning_rate=cfg["model"]["learning_rate"]),
         loss=bce_dice_loss,
         metrics=[dice_coef, iou_score]
     )
@@ -39,7 +45,8 @@ def train_model(train_ds, val_ds, input_shape):
     model.fit(
         train_ds,
         validation_data=val_ds,
-        epochs=50,
+        epochs=cfg["epochs"],
+        batch_size=cfg["batch_size"],
         callbacks=callbacks
     )
 
