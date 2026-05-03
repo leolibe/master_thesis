@@ -53,7 +53,7 @@ Raw data is **not included** due to size and licensing constraints (NTNU dataset
 8. Evaluate using Dice, IoU, Precision, and Recall
 
 ## Pipeline overview
-![Pipeline overview](docs/pipeline_overview.png)
+![Pipeline overview](docs/pipeline_overview.jpg)
 
 ---
 
