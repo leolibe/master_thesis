@@ -50,7 +50,10 @@ Raw data is **not included** due to size and licensing constraints (NTNU dataset
 5. Filter empty patches  
 6. Split dataset by tile (to avoid spatial leakage)  
 7. Train a U-Net segmentation model  
-8. Evaluate using Dice, IoU, Precision, and Recall  
+8. Evaluate using Dice, IoU, Precision, and Recall
+
+## Pipeline overview
+![Pipeline overview](docs/pipeline_overview.png)
 
 ---
 
