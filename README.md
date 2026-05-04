@@ -13,20 +13,23 @@ The goal is to generate **binary road masks** from geospatial data and train a *
 
 ## Project Structure
 
-
+```text
 master_thesis/
-├── configs/train_config.yaml # Training hyperparameters
-├── notebooks/demo_predictions.ipynb
-├── src/road_segmentation/
-│ ├── mask_generation.py # GML → PNG masks
-│ ├── patch_generation.py # Tiles → 512×512 patches
-│ ├── preprocessing.py # Filtering + spatial split
-│ ├── dataset.py # tf.data pipeline
-│ ├── train.py # U-Net training
-│ ├── evaluate.py # Test metrics
-│ └── visualization.py # Prediction plots
+├── configs/
+│   └── train_config.yaml          # Training hyperparameters
+├── notebooks/
+│   └── demo_predictions.ipynb
+├── src/
+│   └── road_segmentation/
+│       ├── mask_generation.py     # GML → PNG masks
+│       ├── patch_generation.py    # Tiles → 512×512 patches
+│       ├── preprocessing.py       # Filtering + spatial split
+│       ├── dataset.py             # tf.data pipeline
+│       ├── train.py               # U-Net training
+│       ├── evaluate.py            # Test metrics
+│       └── visualization.py       # Prediction plots
 └── results/
-
+```
 
 ---
 
