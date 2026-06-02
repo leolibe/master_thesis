@@ -43,10 +43,12 @@ master_thesis/
 ├── docs/
 │   └── pipeline_overview.JPG
 ├── examples/
-│   ├── images/
-│   └── masks/
+│   └── <YEAR XXXX>
+│      ├── images
+│      └── masks
 ├── notebooks/
-│   └── demo_predictions.ipynb
+│   ├── demo_predictions.ipynb
+│   └── visualize_temporal_predictions.ipynb
 ├── results/
 │   ├── prediction_examples.png
 │   └── training_loss.png
