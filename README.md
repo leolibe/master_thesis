@@ -43,8 +43,9 @@ master_thesis/
 ├── docs/
 │   └── pipeline_overview.JPG
 ├── examples/
-│   ├── images/
-│   └── masks/
+│   └── <YEAR XXXX>
+│      ├── images
+│      └── masks
 ├── notebooks/
 │   └── demo_predictions.ipynb
 ├── results/
