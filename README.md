@@ -47,7 +47,8 @@ master_thesis/
 │      ├── images
 │      └── masks
 ├── notebooks/
-│   └── demo_predictions.ipynb
+│   ├── demo_predictions.ipynb
+│   └── visualize_temporal_predictions.ipynb
 ├── results/
 │   ├── prediction_examples.png
 │   └── training_loss.png
