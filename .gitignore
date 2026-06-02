@@ -44,6 +44,9 @@ data/
 *.keras
 *.pt
 *.pth
+*.h5
+*.hdf5
+results/models/
 
 # =========================
 # TRAINING OUTPUTS
