@@ -327,7 +327,8 @@ data/05.predictions/final_model_test1/area_evolution_total.png
 ---
 
 ## Example predictions
-
+Here isn example of a prediction at the end of step 5 - Inference.
+The results of this step are still being refined to improve the model's reproducibility across different years.
 ![Prediction examples](results/prediction_examples.png)
 
 ---
