@@ -1,6 +1,6 @@
 input_size: [512, 512]
-batch_size: 4
-epochs: 50
+batch_size: 0
+epochs: 15
 
 split:
   train: 0.64
