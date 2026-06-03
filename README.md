@@ -70,13 +70,12 @@ master_thesis/
 └── README.md
 ```
 
-Some files listed above, such as `training_final.py`, `inference_all_years.py`, and `postprocess_width_area.py`, correspond to the final pipeline and should be added to `src/road_segmentation/` if they are not already present.
 
 ---
 
 ## Data structure
 
-The raw data and generated datasets are not included in this repository because of file size and licensing constraints.
+The full raw data and generated datasets are not included in this repository because of file size and licensing constraints.
 
 The code expects a local data structure similar to:
 
